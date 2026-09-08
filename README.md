@@ -63,7 +63,7 @@ All evidence is curated and illustrative.
 
 ## 👤 Author
 
-**Karla Kollberg**  
+**Karla Utrera Kollberg**  
 Product Lead — Communication, Trust & Policy  
 Longevity Evidence Navigation System (LENS)
 
