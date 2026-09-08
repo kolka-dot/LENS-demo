@@ -263,6 +263,88 @@ Here is the main reason: ${gap.reasons[0]}.
 >
   <strong>{selectedClaim.text}</strong>
 </div>
+          {/* EVIDENCE BADGES */}
+<div
+  style={{
+    display: "flex",
+    flexWrap: "wrap",
+    gap: "0.5rem",
+    marginBottom: "1.5rem"
+  }}
+>
+  <span
+    style={{
+      background: "#e8f5e9",
+      padding: "0.4rem 0.7rem",
+      borderRadius: "6px",
+      border: "1px solid #c8e6c9",
+      fontSize: "0.85rem"
+    }}
+  >
+    Maturity: <strong>{selectedClaim.evidence.maturity}</strong>
+  </span>
+
+  <span
+    style={{
+      background: "#fff3e0",
+      padding: "0.4rem 0.7rem",
+      borderRadius: "6px",
+      border: "1px solid #ffe0b2",
+      fontSize: "0.85rem"
+    }}
+  >
+    Currency: <strong>{selectedClaim.evidence.evidenceCurrency}</strong>
+  </span>
+
+  <span
+    style={{
+      background: "#e3f2fd",
+      padding: "0.4rem 0.7rem",
+      borderRadius: "6px",
+      border: "1px solid #bbdefb",
+      fontSize: "0.85rem"
+    }}
+  >
+    Directness: <strong>{selectedClaim.evidence.outcomeDirectness}</strong>
+  </span>
+
+  <span
+    style={{
+      background: "#f3e5f5",
+      padding: "0.4rem 0.7rem",
+      borderRadius: "6px",
+      border: "1px solid #e1bee7",
+      fontSize: "0.85rem"
+    }}
+  >
+    Evidence Type: <strong>{selectedClaim.evidence.evidenceType}</strong>
+  </span>
+
+  <span
+    style={{
+      background: "#fbe9e7",
+      padding: "0.4rem 0.7rem",
+      borderRadius: "6px",
+      border: "1px solid #ffccbc",
+      fontSize: "0.85rem"
+    }}
+  >
+    Population Fit: <strong>{selectedClaim.evidence.populationFit}</strong>
+  </span>
+
+  <span
+    style={{
+      background: "#f9fbe7",
+      padding: "0.4rem 0.7rem",
+      borderRadius: "6px",
+      border: "1px solid #f0f4c3",
+      fontSize: "0.85rem"
+    }}
+  >
+    Uncertainty: <strong>{selectedClaim.evidence.uncertaintyRegister}</strong>
+  </span>
+</div>
+          
 
 {/* GAP BAR */}
 {(() => {
