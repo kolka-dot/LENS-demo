@@ -251,61 +251,262 @@ Here is the main reason: ${gap.reasons[0]}.
             borderRadius: "8px"
           }}
         >
-          <h2>Claim</h2>
-          <p>{selectedClaim.text}</p>
+         <h2 style={{ marginBottom: "0.5rem" }}>Claim</h2>
+<div
+  style={{
+    background: "#f0f4ff",
+    padding: "1rem",
+    borderRadius: "6px",
+    marginBottom: "1.5rem",
+    border: "1px solid #d0dbff"
+  }}
+>
+  <strong>{selectedClaim.text}</strong>
+</div>
 
-          <h3>Gap Assessment</h3>
-          {(() => {
-            const gap = computeGap(selectedClaim);
-            const color =
+{/* GAP BAR */}
+{(() => {
+  const gap = computeGap(selectedClaim);
+
+  const gapColor =
+    gap.level === "Low"
+      ? "#4caf50"
+      : gap.level === "Medium"
+      ? "#ff9800"
+      : "#f44336";
+
+  return (
+    <>
+      <h3 style={{ marginTop: "1rem" }}>Gap Assessment</h3>
+
+      {/* Gap bar */}
+      <div
+        style={{
+          height: "12px",
+          background: "#eee",
+          borderRadius: "6px",
+          marginBottom: "1rem",
+          overflow: "hidden"
+        }}
+      >
+        <div
+          style={{
+            width:
               gap.level === "Low"
-                ? "green"
+                ? "33%"
                 : gap.level === "Medium"
-                ? "orange"
-                : "red";
+                ? "66%"
+                : "100%",
+            background: gapColor,
+            height: "100%"
+          }}
+        ></div>
+      </div>
 
-            return (
-              <>
-                <p>
-                  <strong>Gap Level:</strong>{" "}
-                  <span style={{ color }}>{gap.level}</span>
-                </p>
-                <p>
-                  <strong>Score:</strong> {gap.score}
-                </p>
-                <ul>
-                  {gap.reasons.map((r, i) => (
-                    <li key={i}>{r}</li>
-                  ))}
-                </ul>
+      {/* Gap level */}
+      <p>
+        <strong>Gap Level:</strong>{" "}
+        <span style={{ color: gapColor }}>{gap.level}</span>
+      </p>
 
-                <h3>Audience Mode</h3>
-                <select
-                  value={audience}
-                  onChange={(e) => setAudience(e.target.value)}
-                  style={{ padding: "0.5rem", marginBottom: "1rem" }}
-                >
-                  <option value="expert">Expert</option>
-                  <option value="journalist">Journalist</option>
-                  <option value="policymaker">Policymaker</option>
-                  <option value="public">Public</option>
-                  <option value="lowLiteracy">Low Literacy</option>
-                </select>
+      {/* Reasons */}
+      <div
+        style={{
+          background: "#fafafa",
+          padding: "1rem",
+          borderRadius: "6px",
+          border: "1px solid #e0e0e0",
+          marginBottom: "1.5rem"
+        }}
+      >
+        <strong>Why this gap exists:</strong>
+        <ul style={{ marginTop: "0.5rem" }}>
+          {gap.reasons.map((r, i) => (
+            <li key={i}>{r}</li>
+          ))}
+        </ul>
+      </div>
 
-                <div
-                  style={{
-                    background: "#f7f7f7",
-                    padding: "1rem",
-                    borderRadius: "6px"
-                  }}
-                >
-                  <p>{audienceModes[audience](selectedClaim, gap)}</p>
-                </div>
-              </>
-            );
-          })()}
+      {/* Audience Mode */}
+      <h3>Audience Mode</h3>
+      <select
+        value={audience}
+        onChange={(e) => setAudience(e.target.value)}
+        style={{
+          padding: "0.5rem",
+          marginBottom: "1rem",
+          borderRadius: "6px",
+          border: "1px solid #ccc"
+        }}
+      >
+        <option value="expert">Expert</option>
+        <option value="journalist">Journalist</option>
+        <option value="policymaker">Policymaker</option>
+        <option value="public">Public</option>
+        <option value="lowLiteracy">Low Literacy</option>
+      </select>
+
+      <div
+        style={{
+          background: "#f7f7f7",
+          padding: "1rem",
+          borderRadius: "6px",
+          border: "1px solid #ddd"
+        }}
+      >
+        <p style={{ whiteSpace: "pre-line" }}>
+          {audienceModes[audience](selectedClaim, gap)}
+        </p>
+      </div>
+    </>
+  );
+})()}
+
+                 return (
+    <div style={{ fontFamily: "Arial", padding: "2rem" }}>
+      <h1>LENS Demo — Phase B (Gap Engine)</h1>
+      <p>Select a claim to view its evidence packet and gap profile.</p>
+
+      {/* CLAIM LIST */}
+      <div style={{ marginBottom: "2rem" }}>
+        {claims.map((claim) => (
+          <button
+            key={claim.id}
+            onClick={() => setSelectedClaim(claim)}
+            style={{
+              display: "block",
+              marginBottom: "1rem",
+              padding: "1rem",
+              fontSize: "1rem"
+            }}
+          >
+            {claim.text}
+          </button>
+        ))}
+      </div>
+
+      {/* CLAIM DETAILS */}
+      {selectedClaim && (
+        <div
+          style={{
+            border: "1px solid #ccc",
+            padding: "1.5rem",
+            borderRadius: "8px"
+          }}
+        >
+         <h2 style={{ marginBottom: "0.5rem" }}>Claim</h2>
+<div
+  style={{
+    background: "#f0f4ff",
+    padding: "1rem",
+    borderRadius: "6px",
+    marginBottom: "1.5rem",
+    border: "1px solid #d0dbff"
+  }}
+>
+  <strong>{selectedClaim.text}</strong>
+</div>
+
+{/* GAP BAR */}
+{(() => {
+  const gap = computeGap(selectedClaim);
+
+  const gapColor =
+    gap.level === "Low"
+      ? "#4caf50"
+      : gap.level === "Medium"
+      ? "#ff9800"
+      : "#f44336";
+
+  return (
+    <>
+      <h3 style={{ marginTop: "1rem" }}>Gap Assessment</h3>
+
+      {/* Gap bar */}
+      <div
+        style={{
+          height: "12px",
+          background: "#eee",
+          borderRadius: "6px",
+          marginBottom: "1rem",
+          overflow: "hidden"
+        }}
+      >
+        <div
+          style={{
+            width:
+              gap.level === "Low"
+                ? "33%"
+                : gap.level === "Medium"
+                ? "66%"
+                : "100%",
+            background: gapColor,
+            height: "100%"
+          }}
+        ></div>
+      </div>
+
+      {/* Gap level */}
+      <p>
+        <strong>Gap Level:</strong>{" "}
+        <span style={{ color: gapColor }}>{gap.level}</span>
+      </p>
+
+      {/* Reasons */}
+      <div
+        style={{
+          background: "#fafafa",
+          padding: "1rem",
+          borderRadius: "6px",
+          border: "1px solid #e0e0e0",
+          marginBottom: "1.5rem"
+        }}
+      >
+        <strong>Why this gap exists:</strong>
+        <ul style={{ marginTop: "0.5rem" }}>
+          {gap.reasons.map((r, i) => (
+            <li key={i}>{r}</li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Audience Mode */}
+      <h3>Audience Mode</h3>
+      <select
+        value={audience}
+        onChange={(e) => setAudience(e.target.value)}
+        style={{
+          padding: "0.5rem",
+          marginBottom: "1rem",
+          borderRadius: "6px",
+          border: "1px solid #ccc"
+        }}
+      >
+        <option value="expert">Expert</option>
+        <option value="journalist">Journalist</option>
+        <option value="policymaker">Policymaker</option>
+        <option value="public">Public</option>
+        <option value="lowLiteracy">Low Literacy</option>
+      </select>
+
+      <div
+        style={{
+          background: "#f7f7f7",
+          padding: "1rem",
+          borderRadius: "6px",
+          border: "1px solid #ddd"
+        }}
+      >
+        <p style={{ whiteSpace: "pre-line" }}>
+          {audienceModes[audience](selectedClaim, gap)}
+        </p>
+      </div>
+    </>
+  );
+})()} 
         </div>
       )}
     </div>
   );
 }
+
