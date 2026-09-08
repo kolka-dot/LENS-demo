@@ -146,29 +146,74 @@ export default function App() {
   // -----------------------------------------
   // AUDIENCE MODES (Phase B aware)
   // -----------------------------------------
+const audienceModes = {
+  expert: (claim, gap) => {
+    return `
+Expert view:
+• Gap level: ${gap.level} (score ${gap.score})
+• Mismatch triggers: ${gap.reasons.join("; ")}
+• Evidence maturity: ${claim.evidence.maturity} — ${claim.evidence.maturityLadder}
+• Outcome directness: ${claim.evidence.outcomeDirectness}
+• Evidence type: ${claim.evidence.evidenceType}
+• Population fit: ${claim.evidence.populationFit}
+• Uncertainty register: ${claim.evidence.uncertaintyRegister}
+• Evidence currency: ${claim.evidence.evidenceCurrency}
+    `.trim();
+  },
 
-  const audienceModes = {
-    expert: (claim, gap) =>
-      `Expert view: Gap = ${gap.level}. Score = ${gap.score}. Reasons: ${gap.reasons.join(
-        "; "
-      )}. Evidence maturity = ${claim.evidence.maturity}. Evidence type = ${claim.evidence.evidenceType}.`,
+  journalist: (claim, gap) => {
+    return `
+Journalist view:
+This claim has a ${gap.level.toLowerCase()} evidence gap. 
+Safe wording: “Current research suggests ${claim.text.toLowerCase()} may be possible, 
+but the available evidence is ${claim.evidence.maturity.toLowerCase()} and shows ${claim.evidence.outcomeDirectness.toLowerCase()} outcomes.”
+Key caution points: ${gap.reasons.slice(0, 2).join("; ")}.
+Avoid definitive language. Avoid implying causality unless supported.
+    `.trim();
+  },
 
-    journalist: (claim, gap) =>
-      `Journalist view: The gap is ${gap.level.toLowerCase()}. Key reasons: ${gap.reasons
-        .slice(0, 2)
-        .join("; ")}.`,
+  policymaker: (claim, gap) => {
+    return `
+Policymaker view:
+Gap level: ${gap.level}. 
+Evidence currency: ${claim.evidence.evidenceCurrency}.
+Population applicability: ${claim.evidence.populationFit}.
+Action justification:
+• Supported: Policies encouraging further research, monitoring, or pilot programs.
+• Not supported: Large-scale implementation or public health claims without stronger evidence.
+• Premature: Any claim implying reversal of ageing or population-wide effects.
+    `.trim();
+  },
 
-    policymaker: (claim, gap) =>
-      `Policymaker view: Gap = ${gap.level}. Evidence currency = ${claim.evidence.evidenceCurrency}. Population fit = ${claim.evidence.populationFit}.`,
+  public: (claim, gap) => {
+    return `
+Public view:
+The evidence gap is ${gap.level.toLowerCase()}. 
+This means the proof is ${
+      gap.level === "Low" ? "strong" :
+      gap.level === "Medium" ? "mixed" :
+      "weak"
+    }.
+What we know: ${claim.evidence.maturityLadder}.
+What we don’t know yet: ${gap.reasons.slice(0, 1)}.
+    `.trim();
+  },
 
-    public: (claim, gap) =>
-      `Public view: The gap is ${gap.level.toLowerCase()}. This means the proof is ${
-        gap.level === "Low" ? "strong" : gap.level === "Medium" ? "mixed" : "weak"
-      }.`,
+  lowLiteracy: (claim, gap) => {
+    return `
+Simple view:
+The gap is ${gap.level}. 
+This means the proof is ${
+      gap.level === "Low" ? "good" :
+      gap.level === "Medium" ? "unclear" :
+      "not good"
+    }.
+Here is the main reason: ${gap.reasons[0]}.
+    `.trim();
+  }
+};
 
-    lowLiteracy: (claim, gap) =>
-      `Simple view: Gap is ${gap.level}.`
-  };
+
 
   // -----------------------------------------
   // RENDER
