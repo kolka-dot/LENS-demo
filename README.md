@@ -61,4 +61,11 @@ All evidence is curated and illustrative.
 
 ## 📁 Project Structure
 
+## 👤 Author
+
+**Karla Kollberg**  
+Product Lead — Communication, Trust & Policy  
+Longevity Evidence Navigation System (LENS)
+
+
 
