@@ -1,91 +1,150 @@
 import React, { useState } from "react";
 
 export default function App() {
+  // -----------------------------------------
+  // STATE VARIABLES
+  // -----------------------------------------
   const [selectedClaim, setSelectedClaim] = useState(null);
   const [audience, setAudience] = useState("public");
+  const [showSources, setShowSources] = useState(false);
 
   // -----------------------------------------
-  // PHASE A — EVIDENCE ARCHITECTURE (kept)
-  // PHASE B — GAP ENGINE (new)
+  // PHASE A — EVIDENCE ARCHITECTURE
+  // PHASE B — GAP ENGINE
   // -----------------------------------------
 
-  const claims = [
-    {
-      id: "exercise",
-      text: "Regular exercise supports healthy ageing.",
-      claimIntensity: "Moderate",
-      evidence: {
-        maturity: "High",
-        maturityLadder: "Multiple large human RCTs + WHO guidelines",
-        outcomeDirectness: "Direct",
-        evidenceType: "Human",
-        evidenceDate: "2023",
-        evidenceCurrency: "Current",
-        populationFit: "General adult population",
-        uncertainty: "Low",
-        uncertaintyRegister: "Consistent findings across populations",
-        sources: [
-          {
-            title: "WHO Physical Activity Guidelines",
-            url: "https://www.who.int/publications/i/item/9789240015128",
-            type: "Guideline"
-          },
-          {
-            title: "NIH Exercise & Ageing Review 2023",
-            url: "https://www.nih.gov",
-            type: "Systematic Review"
-          },
-          {
-            title: "Lancet Healthy Ageing Series",
-            url: "https://www.thelancet.com",
-            type: "Peer-reviewed"
-          }
-        ],
-        reviewer: {
-          type: "Curated demo packet",
-          updated: "2024-01"
+const claims = [
+  {
+    id: "exercise",
+    text: "Regular exercise supports healthy ageing.",
+    evidence: {
+      maturity: "High",
+      evidenceCurrency: "Current",
+      outcomeDirectness: "Direct",
+      evidenceType: "Mixed (RCT + Cohort)",
+      populationFit: "General adult population",
+      uncertaintyRegister: "Low",
+      sources: [
+        {
+          title: "WHO Physical Activity Guidelines",
+          year: 2020,
+          type: "Guideline synthesis",
+          population: "Global adults",
+          outcome: "Reduced mortality, improved ageing markers",
+          limitations: "Population-level guidance"
+        },
+        {
+          title: "NIH Exercise & Ageing Review",
+          year: 2023,
+          type: "Systematic review",
+          population: "Adults 40–75",
+          outcome: "Improved metabolic and cognitive ageing",
+          limitations: "Heterogeneity in study designs"
+        },
+        {
+          title: "Lancet Healthy Ageing Series",
+          year: 2019,
+          type: "Meta-analysis",
+          population: "General population",
+          outcome: "Strong association with healthy ageing trajectories",
+          limitations: "Observational components"
         }
-      }
-    },
-
-    {
-      id: "nmn",
-      text: "NMN reverses human ageing.",
-      claimIntensity: "Strong",
-      evidence: {
-        maturity: "Low",
-        maturityLadder: "Animal studies + surrogate markers",
-        outcomeDirectness: "Indirect",
-        evidenceType: "Animal + surrogate",
-        evidenceDate: "2016–2020",
-        evidenceCurrency: "Outdated",
-        populationFit: "Not established for humans",
-        uncertainty: "High",
-        uncertaintyRegister: "Small uncontrolled human trials; inconsistent results",
-        sources: [
-          {
-            title: "Mouse metabolic studies (2016–2020)",
-            url: "https://pubmed.ncbi.nlm.nih.gov",
-            type: "Animal Study"
-          },
-          {
-            title: "Small uncontrolled human trials",
-            url: "https://clinicaltrials.gov",
-            type: "Pilot Study"
-          },
-          {
-            title: "FDA warning letters on NMN marketing",
-            url: "https://www.fda.gov",
-            type: "Regulatory"
-          }
-        ],
-        reviewer: {
-          type: "Curated demo packet",
-          updated: "2024-01"
-        }
+      ],
+      reviewer: {
+        type: "Curated demo packet",
+        updated: "2024-01"
       }
     }
-  ];
+  },
+
+  {
+    id: "nmn",
+    text: "NMN reverses human ageing.",
+    evidence: {
+      maturity: "Low",
+      evidenceCurrency: "Emerging",
+      outcomeDirectness: "Indirect (animal + surrogate markers)",
+      evidenceType: "Preclinical + small human trials",
+      populationFit: "Not established for humans",
+      uncertaintyRegister: "High",
+      sources: [
+        {
+          title: "Mouse Metabolic Studies",
+          year: 2016,
+          type: "Animal study",
+          population: "Rodents",
+          outcome: "Improved metabolic markers",
+          limitations: "Not generalizable to humans"
+        },
+        {
+          title: "Small Uncontrolled Human Trials",
+          year: 2020,
+          type: "Pilot trial",
+          population: "Adults 40–60",
+          outcome: "Changes in NAD+ levels",
+          limitations: "No control group, small sample size"
+        },
+        {
+          title: "FDA Warning Letters on NMN Marketing",
+          year: 2022,
+          type: "Regulatory communication",
+          population: "U.S. supplement market",
+          outcome: "Concerns about unproven anti-ageing claims",
+          limitations: "Not a scientific study"
+        }
+      ],
+      reviewer: {
+        type: "Curated demo packet",
+        updated: "2024-01"
+      }
+    }
+  },
+
+  {
+    id: "vitaminD",
+    text: "Vitamin D supplementation prevents respiratory infections.",
+    evidence: {
+      maturity: "Medium",
+      evidenceCurrency: "Mixed (recent + older trials)",
+      outcomeDirectness: "Direct",
+      evidenceType: "RCTs + Meta-analyses",
+      populationFit: "Varies by deficiency status",
+      uncertaintyRegister: "Medium",
+      sources: [
+        {
+          title: "BMJ Vitamin D Meta-analysis",
+          year: 2017,
+          type: "Meta-analysis",
+          population: "Children + adults",
+          outcome: "Reduced acute respiratory infections in deficient individuals",
+          limitations: "Effect not seen in non-deficient groups"
+        },
+        {
+          title: "NEJM High-dose Vitamin D Trial",
+          year: 2020,
+          type: "Randomized controlled trial",
+          population: "Adults 18–75",
+          outcome: "No significant reduction in respiratory infections",
+          limitations: "High-dose regimen may not reflect typical use"
+        },
+        {
+          title: "Lancet Public Health Review",
+          year: 2021,
+          type: "Systematic review",
+          population: "General population",
+          outcome: "Benefits mainly in individuals with low baseline levels",
+          limitations: "Heterogeneity in dosing and populations"
+        }
+      ],
+      reviewer: {
+        type: "Curated demo packet",
+        updated: "2024-01"
+      }
+    }
+  }
+];
+
+
 
   // -----------------------------------------
   // PHASE B — GAP ENGINE
