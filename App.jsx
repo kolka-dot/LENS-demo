@@ -344,7 +344,63 @@ Here is the main reason: ${gap.reasons[0]}.
     Uncertainty: <strong>{selectedClaim.evidence.uncertaintyRegister}</strong>
   </span>
 </div>
-          
+          {/* SOURCE DRAWER */}
+<div
+  style={{
+    marginBottom: "1.5rem",
+    border: "1px solid #ddd",
+    borderRadius: "6px",
+    background: "#fafafa"
+  }}
+>
+  <button
+    onClick={() => setShowSources(!showSources)}
+    style={{
+      width: "100%",
+      textAlign: "left",
+      padding: "0.8rem",
+      background: "#f0f0f0",
+      border: "none",
+      borderRadius: "6px 6px 0 0",
+      cursor: "pointer",
+      fontSize: "1rem"
+    }}
+  >
+    {showSources ? "▼ Evidence Sources" : "► Evidence Sources"}
+  </button>
+
+  {showSources && (
+    <div style={{ padding: "1rem" }}>
+      {selectedClaim.evidence.sources.map((src, i) => (
+        <div
+          key={i}
+          style={{
+            marginBottom: "1rem",
+            padding: "0.8rem",
+            background: "#fff",
+            borderRadius: "6px",
+            border: "1px solid #eee"
+          }}
+        >
+          <strong>{src.title}</strong>
+          <p style={{ margin: "0.3rem 0" }}>
+            <em>{src.year}</em> — {src.type}
+          </p>
+          <p style={{ margin: "0.3rem 0" }}>
+            Population: {src.population}
+          </p>
+          <p style={{ margin: "0.3rem 0" }}>
+            Outcome: {src.outcome}
+          </p>
+          <p style={{ margin: "0.3rem 0" }}>
+            Limitations: {src.limitations}
+          </p>
+        </div>
+      ))}
+    </div>
+  )}
+</div>
+
 
 {/* GAP BAR */}
 {(() => {
